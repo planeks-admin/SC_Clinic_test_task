@@ -1,14 +1,17 @@
 import sentry_sdk
-from fastapi import FastAPI
-from fastapi.routing import APIRoute
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from starlette.middleware.cors import CORSMiddleware
-
+from fastapi.routing import APIRoute
 from app.api.main import api_router
 from app.core.config import settings
+from app.core.ws_manager import manager
 
 
 def custom_generate_unique_id(route: APIRoute) -> str:
-    return f"{route.tags[0]}-{route.name}"
+    if route.tags:
+        return f"{route.tags[0]}-{route.name}"
+    from fastapi.routing import generate_unique_id as default_id
+    return default_id(route)
 
 
 if settings.SENTRY_DSN and settings.ENVIRONMENT != "local":
@@ -31,3 +34,21 @@ if settings.all_cors_origins:
     )
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(
+    websocket: WebSocket,
+):
+    await manager.connect(websocket)
+    try:
+        while True:
+            message: dict = await websocket.receive_json()
+            msg_type = message.get("type")
+            msg_data = message.get("data")
+
+            if msg_type == "event" and msg_data == "refresh_tasks":
+                await manager.broadcast_events('refresh_tasks')
+
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
