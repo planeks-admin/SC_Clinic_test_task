@@ -1,7 +1,8 @@
-import uuid
-
+import uuid, asyncio
+from enum import Enum
 from pydantic import EmailStr
 from sqlmodel import Field, Relationship, SQLModel
+from datetime import datetime
 
 
 # Shared properties
@@ -111,3 +112,39 @@ class TokenPayload(SQLModel):
 class NewPassword(SQLModel):
     token: str
     new_password: str = Field(min_length=8, max_length=40)
+
+
+class TaskStatus(str, Enum):
+    TODO = "To Do"
+    IN_PROGRESS = "In Progress"
+
+
+# Shared properties
+class TaskBase(SQLModel):
+    title: str = Field(min_length=1, max_length=255)
+    description: str = Field(min_length=1, max_length=255)
+    assignee: str = Field(min_length=1, max_length=255)
+    status: TaskStatus = Field(default=TaskStatus.TODO)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class TaskCreate(TaskBase):
+    pass
+
+
+class TaskUpdate(TaskBase):
+    status: TaskStatus = Field(default=TaskStatus.TODO)
+
+
+class Task(TaskBase, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+
+
+# Properties to return via API, id is always required
+class TaskPublic(TaskBase):
+    id: uuid.UUID
+
+
+class TasksPublic(SQLModel):
+    data: list[TaskPublic]
+    count: int
