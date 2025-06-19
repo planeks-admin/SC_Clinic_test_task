@@ -40,6 +40,13 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 async def websocket_endpoint(
     websocket: WebSocket,
 ):
+    """
+    WebSocket entrypoint.
+
+    When a client sends {"type": "event", "data": "refresh_tasks"},
+    broadcast a 'refresh_tasks' notification to all connected clients
+    so they know to reload or re‑fetch their task lists.
+    """
     await manager.connect(websocket)
     try:
         while True:
