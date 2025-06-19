@@ -1,7 +1,7 @@
+import { useQueryClient } from "@tanstack/react-query"
 import { useCallback, useEffect, useRef } from "react"
-import {useQueryClient} from "@tanstack/react-query";
 
-type WebSocketMessage = { type: string, data: string } | { type: "ping" }
+type WebSocketMessage = { type: string; data: string } | { type: "ping" }
 
 export function useWebSocket() {
   const wsRef = useRef<WebSocket | null>(null)
@@ -44,8 +44,8 @@ export function useWebSocket() {
 
       switch (data.type) {
         case "event":
-          if (data.data == "refresh_tasks"){
-            queryClient.invalidateQueries({ queryKey: ['tasks'] })
+          if (data.data === "refresh_tasks") {
+            queryClient.invalidateQueries({ queryKey: ["tasks"] })
           }
       }
     }

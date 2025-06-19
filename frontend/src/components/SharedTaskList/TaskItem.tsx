@@ -14,7 +14,11 @@ const TaskItem: React.FC<Props> = ({ task, onClaim }) => (
       </div>
       <div className="text-muted">{task.description}</div>
     </div>
-    <button className="btn btn-sm btn-success" onClick={() => onClaim(task.id)}>
+    <button
+      type="button"
+      className="btn btn-sm btn-success"
+      onClick={() => onClaim(task.id)}
+    >
       Claim Task
     </button>
   </li>

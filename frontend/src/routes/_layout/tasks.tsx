@@ -12,17 +12,17 @@ import { FiSearch } from "react-icons/fi"
 import { z } from "zod"
 
 import { TasksService } from "@/client"
+import { TaskActionsMenu } from "@/components/Common/TaskActionMenu.tsx"
 import PendingItems from "@/components/Pending/PendingItems"
+import AddTask from "@/components/SharedTaskList/AddTask.tsx"
+import SearchBar from "@/components/SharedTaskList/SearchBar.tsx"
 import {
   PaginationItems,
   PaginationNextTrigger,
   PaginationPrevTrigger,
   PaginationRoot,
 } from "@/components/ui/pagination.tsx"
-import {TaskActionsMenu} from "@/components/Common/TaskActionMenu.tsx";
-import AddTask from "@/components/SharedTaskList/AddTask.tsx";
-import SearchBar from "@/components/SharedTaskList/SearchBar.tsx";
-import {useState} from "react";
+import { useState } from "react"
 
 const tasksSearchSchema = z.object({
   page: z.number().catch(1),
@@ -31,10 +31,17 @@ const tasksSearchSchema = z.object({
 
 const PER_PAGE = 5
 
-function getTasksQueryOptions({ page, title }: { page: number; title: string }) {
+function getTasksQueryOptions({
+  page,
+  title,
+}: { page: number; title: string }) {
   return {
     queryFn: () =>
-      TasksService.readTasks({ skip: (page - 1) * PER_PAGE, limit: PER_PAGE, title: title }),
+      TasksService.readTasks({
+        skip: (page - 1) * PER_PAGE,
+        limit: PER_PAGE,
+        title: title,
+      }),
     queryKey: ["tasks", { page, title }],
   }
 }
