@@ -16,7 +16,7 @@ export function useWebSocket() {
 
   useEffect(() => {
     const protocol = window.location.protocol === "https:" ? "wss" : "ws"
-    const socket = new WebSocket(`${protocol}://127.0.0.1:8000/ws`)
+    const socket = new WebSocket(`${protocol}://${import.meta.env.VITE_API_URL}`)
     wsRef.current = socket
 
     socket.onopen = () => {
