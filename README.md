@@ -1,3 +1,39 @@
+For this task we chose the FastAPI Fullstack Boilerplate because it offers many built‑in features and libraries that 
+accelerate development and ensure a secure solution aligned with industry best practices.
+
+Other approaches—such as GraphQL (for its native support of subscriptions (real‑time updates)) or Django (for its 
+straightforward CRUD functionality and extensive built‑in features)—were rejected in favor of a FastAPI + React stack. 
+This boilerplate also includes built‑in integration with TanStack Query, allowing the frontend and backend to work more 
+smoothly together and invalidate queries to fetch updated results.
+
+Because docker compose watch doesn’t work reliably on all systems, we added a compose.dev.yml file for development. 
+It ensures that migration files are saved correctly and mounts the backend root as a volume so code changes are 
+picked up dynamically.
+
+To run the project in a development environment, you have two options:
+
+1. Using Docker Compose Watch
+```bash
+docker compose watch
+```
+
+2. Using compose.dev.yml
+```bash
+docker compose -f compose.dev.yml build
+```
+```bash
+docker compose -f compose.dev.yml up -d
+```
+```bash
+docker compose exec backend bash
+```
+```bash
+alembic upgrade head 
+```
+
+Below you can find the standard FastAPI Fullstack Boilerplate README file to learn more about its capabilities and features.
+
+
 # Full Stack FastAPI Template
 
 <a href="https://github.com/fastapi/full-stack-fastapi-template/actions?query=workflow%3ATest" target="_blank"><img src="https://github.com/fastapi/full-stack-fastapi-template/workflows/Test/badge.svg" alt="Test"></a>
