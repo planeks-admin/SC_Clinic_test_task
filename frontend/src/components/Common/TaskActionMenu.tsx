@@ -18,7 +18,7 @@ export const TaskActionsMenu = ({ task }: TaskActionsMenuProps) => {
         </IconButton>
       </MenuTrigger>
       <MenuContent>
-        <ClaimTask id={task.id} />
+        {task.id && <ClaimTask id={task.id} />}
       </MenuContent>
     </MenuRoot>
   )
