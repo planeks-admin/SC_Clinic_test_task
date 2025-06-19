@@ -38,10 +38,10 @@ docker compose -f compose.dev.yml up -d
 docker compose exec backend bash
 ```
 ```bash
-exit 
+alembic upgrade head 
 ```
 ```bash
-alembic upgrade head 
+exit 
 ```
 ```bash
 cd frontend
