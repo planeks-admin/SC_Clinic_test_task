@@ -56,7 +56,7 @@ export function useWebSocket() {
     return () => {
       socket.close()
     }
-  }, [])
+  }, [queryClient])
 
   return { send }
 }
