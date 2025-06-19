@@ -11,7 +11,7 @@ router = APIRouter(prefix="/tasks", tags=["tasks"])
 
 
 @router.get("/", response_model=TasksPublic)
-def read_tasks(
+async def read_tasks(
         session: SessionDep,
         title:str|None = None,
         skip: int = 0,
@@ -38,7 +38,7 @@ def read_tasks(
 
 
 @router.post("/create", response_model=Task, status_code=201)
-def create_task(
+async def create_task(
     *, session: SessionDep, task_in: TaskCreate
 ) -> Any:
     """
@@ -52,7 +52,7 @@ def create_task(
 
 
 @router.put("/claim-task/{id}", response_model=Task)
-def claim_task(
+async def claim_task(
     *,
     session: SessionDep,
     id: uuid.UUID,
