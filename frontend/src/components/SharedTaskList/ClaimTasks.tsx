@@ -73,9 +73,8 @@ const ClaimTask = ({ id }: { id: string }) => {
           </DialogHeader>
           <DialogBody>
             <Text mb={4}>
-              The status of this task will switch to "In Progress," and it will
-              be removed from the Shared Task List. Are you sure you want to
-              claim this task?
+              The status of this task will be changed to 'In Progress' and it will be removed from the Shared
+              Task List. Are you sure you want to claim this task?
             </Text>
           </DialogBody>
 
