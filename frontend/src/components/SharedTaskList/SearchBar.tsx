@@ -10,6 +10,7 @@ const SearchBar: React.FC<Props> = ({ title, onChange }) => (
     type="text"
     className="form-control mb-3"
     placeholder="Search by title..."
+    style={{ padding: "5px" }}
     value={title}
     onChange={(e) => onChange(e.target.value)}
   />
