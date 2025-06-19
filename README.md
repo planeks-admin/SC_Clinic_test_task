@@ -27,6 +27,7 @@ docker compose watch
 ```
 
 2. Using compose.dev.yml
+Run the following commands in the specified order:
 ```bash
 docker compose -f compose.dev.yml build
 ```
@@ -37,9 +38,19 @@ docker compose -f compose.dev.yml up -d
 docker compose exec backend bash
 ```
 ```bash
+exit 
+```
+```bash
 alembic upgrade head 
 ```
+```bash
+cd frontend
+```
+```bash
+npm run dev
+```
 
+In the local setup, the webpage is accessible at http://localhost:5173/
 
 
 Below you can find the standard FastAPI Fullstack Boilerplate README file to learn more about its capabilities and features.
