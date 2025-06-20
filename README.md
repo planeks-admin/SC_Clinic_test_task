@@ -21,6 +21,9 @@ picked up dynamically.
 
 To run the project in a development environment, run the following commands:
 ```bash
+docker network create traefik-public
+```
+```bash
 docker compose -f compose.dev.yml build
 ```
 ```bash
