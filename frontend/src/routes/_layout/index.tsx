@@ -46,7 +46,7 @@ function getTasksQueryOptions({
   }
 }
 
-export const Route = createFileRoute("/_layout/index")({
+export const Route = createFileRoute("/_layout/")({
   component: Tasks,
   validateSearch: (search) => tasksSearchSchema.parse(search),
 })
