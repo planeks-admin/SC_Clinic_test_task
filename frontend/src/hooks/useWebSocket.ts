@@ -15,8 +15,7 @@ export function useWebSocket() {
   }, [])
 
   useEffect(() => {
-    const protocol = window.location.protocol === "https:" ? "wss" : "ws"
-    const socket = new WebSocket(`${protocol}://${import.meta.env.VITE_API_URL}`)
+    const socket = new WebSocket(`ws://127.0.0.1:8000/ws`)
     wsRef.current = socket
 
     socket.onopen = () => {
@@ -36,6 +35,7 @@ export function useWebSocket() {
       let data: WebSocketMessage
       try {
         data = JSON.parse(e.data)
+        console.log(data)
       } catch {
         console.error("[WS] bad JSON:", e.data)
         return
@@ -45,6 +45,7 @@ export function useWebSocket() {
       switch (data.type) {
         case "event":
           if (data.data === "refresh_tasks") {
+            console.log('refresh tasks')
             queryClient.invalidateQueries({ queryKey: ["tasks"] })
           }
       }
@@ -56,7 +57,7 @@ export function useWebSocket() {
     return () => {
       socket.close()
     }
-  }, [queryClient])
+  }, [])
 
   return { send }
 }
