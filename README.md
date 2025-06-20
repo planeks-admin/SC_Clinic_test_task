@@ -34,21 +34,6 @@ docker compose -f compose.dev.yml build
 ```bash
 docker compose -f compose.dev.yml up -d
 ```
-```bash
-docker compose exec backend bash
-```
-```bash
-alembic upgrade head 
-```
-```bash
-exit 
-```
-```bash
-cd frontend
-```
-```bash
-npm run dev
-```
 
 In the local setup, the webpage is accessible at http://localhost:5173/
 
