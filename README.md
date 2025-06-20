@@ -19,20 +19,17 @@ Because docker compose watch doesn’t work reliably on all systems, we added a 
 It ensures that migration files are saved correctly and mounts the backend root as a volume so code changes are 
 picked up dynamically.
 
-To run the project in a development environment, you have two options:
-
-1. Using Docker Compose Watch
-```bash
-docker compose watch
-```
-
-2. Using compose.dev.yml
-Run the following commands in the specified order:
+To run the project in a development environment, run the following commands:
 ```bash
 docker compose -f compose.dev.yml build
 ```
 ```bash
 docker compose -f compose.dev.yml up -d
+```
+
+To stop the project run:
+```bash
+docker compose -f compose.dev.yml down
 ```
 
 In the local setup, the webpage is accessible at http://localhost:5173/
